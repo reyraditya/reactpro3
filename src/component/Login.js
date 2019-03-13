@@ -2,7 +2,9 @@ import React, {Component} from 'react';
 import {Link} from 'react-router-dom';
 import {connect} from 'react-redux'
 
-import {onLoginClick} from '../action'
+import {onLoginClick} from '../action';
+import {onSetTimeOut} from '../action';
+
 
 
 class Login extends Component{
@@ -10,6 +12,19 @@ class Login extends Component{
         const user = this.username.value
         const pass = this.password.value
         this.props.onLoginClick(user, pass)   
+    }
+
+    onErrorLogin = () => {
+        if(this.props.user.error !== ''){
+            setTimeout(this.props.onSetTimeOut, 2000);
+            return(
+                <div className="alert alert-danger mt-4">
+                    {this.props.user.error}
+                </div>
+            )
+        } else{
+            return null
+        }
     }
 
     render(){
@@ -33,6 +48,7 @@ class Login extends Component{
                             <form className="input-group"><input ref={input => {this.password = input}} className="form-control" type="password"/>
                             </form>
                             <button onClick={this.onSubmitClick} className="btn btn-success btn-block mt-5" >Login</button>
+                            {this.onErrorLogin()}
                             <p className="lead">Don't have account ? <Link to="/register">Sign Up!</Link></p>
                         </div>
                     </div>
@@ -42,4 +58,8 @@ class Login extends Component{
     }
 }
 
-export default connect (null, {onLoginClick})(Login); 
+const mapsStateToProps = state => {
+    return {user: state.auth}
+}
+
+export default connect (mapsStateToProps, {onLoginClick, onSetTimeOut})(Login); 

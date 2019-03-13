@@ -1,9 +1,39 @@
 {
-    "users" : [
-        {
-            "id": 1,
-            "username": "rey",
-            "password": "sedangbelajar"
-        }
-    ]
+  "users": [
+    {
+      "id": 1,
+      "username": "rey",
+      "password": "sedangbelajar"
+    },
+    {
+      "name": "bangsat",
+      "desc": "babi",
+      "price": "454",
+      "pict": "anjinkkk",
+      "id": 2
+    }
+  ],
+  "products": [
+    {
+      "id": 1,
+      "name": "PRADA",
+      "desc": "jacquard-knit top",
+      "price": 590,
+      "src": "https://cdn-images.farfetch-contents.com/13/63/74/91/13637491_16494432_300.jpg"
+    },
+    {
+      "id": 2,
+      "name": "PRADA",
+      "desc": "t-shirt logo patch",
+      "price": 320,
+      "src": "https://cdn-images.farfetch-contents.com/13/30/28/76/13302876_16776947_300.jpg"
+    },
+    {
+      "id": 3,
+      "name": "PRADA",
+      "desc": "geometric pattern sweater",
+      "price": 605,
+      "src": "https://cdn-images.farfetch-contents.com/13/62/39/94/13623994_16359893_300.jpg"
+    }
+  ]
 }

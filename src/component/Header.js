@@ -2,10 +2,12 @@ import React, {Component} from 'react';
 import {Link, Redirect} from 'react-router-dom';
 import {connect} from 'react-redux';
 
+import {onLogoutUser} from '../action';
+
 class Header extends Component{
     render(){
-        const {username} = this.props.user
-        if(username === ''){
+        const {user} = this.props
+        if(user.username === ''){
            return(
             <div>
                 <nav className="navbar navbar-expand-sm navbar-light bg-light mb-3">
@@ -38,8 +40,9 @@ class Header extends Component{
                 </div>
             ) 
         } else{
-            return(
+            return (
                 <div>
+                    <Redirect to="/"/>
                     <nav className="navbar sticky-top navbar-expand-md navbar-light bg-light mb-3">
                         <div className="container">
                             <Link className="navbar-brand" to="/">simpleMercer</Link>
@@ -57,7 +60,7 @@ class Header extends Component{
                                         <Link className="nav-link" to="/">All Product</Link>
                                     </li>
                                     <li className="nav-item dropdown mt-2">
-                                        <Link to="/asd" className="nav-link dropdown-toggle" data-toggle="dropdown">Welcome, {username}</Link>
+                                        <Link to="/" className="nav-link dropdown-toggle" data-toggle="dropdown">Welcome, {user.username}</Link>
                                         <div className="dropdown-menu">
                                             <Link to="/manageproduct" className="dropdown-item">Manage Product</Link>
                                             <Link to="/" className="dropdown-item">Link 2</Link>
@@ -65,11 +68,11 @@ class Header extends Component{
                                         </div>
                                     </li>
                                     {/* <li className="nav-item m-1">
-                                        <Link className="nav-link" to="/register"><button className="btn btn-primary">Register</button></Link>
-                                    </li>
-                                    <li className="nav-item m-1">
-                                        <Link className="nav-link" to="/login"><button className="btn btn-success">Login</button></Link>
-                                    </li> */}
+                                    <Link className="nav-link" to="/register"><button className="btn btn-primary">Register</button></Link>
+                                </li>
+                                <li className="nav-item m-1">
+                                    <Link className="nav-link" to="/login"><button className="btn btn-success">Login</button></Link>
+                                </li> */}
                                 </ul>
                             </div>
                         </div>
@@ -84,4 +87,4 @@ const mapsStateToProps = state => {
     return {user: state.auth} // fetch data username dari redux store
 }
 
-export default connect(mapsStateToProps)(Header);
+export default connect(mapsStateToProps,{onLogoutUser})(Header);

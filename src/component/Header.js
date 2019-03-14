@@ -12,7 +12,7 @@ class Header extends Component{
             <div>
                 <nav className="navbar navbar-expand-sm navbar-light bg-light mb-3">
                         <div className="container">
-                            <Link className="navbar-brand" to="/">SimpleMerce</Link>
+                            <Link className="navbar-brand" to="/">ESSENCE</Link>
                             <button className="navbar-toggler" data-toggle="collapse" data-target="#navbarNav2">
                                 <span className="navbar-toggler-icon"></span>
                             </button>
@@ -45,7 +45,7 @@ class Header extends Component{
                     <Redirect to="/"/>
                     <nav className="navbar sticky-top navbar-expand-md navbar-light bg-light mb-3">
                         <div className="container">
-                            <Link className="navbar-brand" to="/">simpleMercer</Link>
+                            <Link className="navbar-brand" to="/">ESSENCE</Link>
                             <button className="navbar-toggler" data-toggle="collapse" data-target="#navbarNav2">
                                 <span className="navbar-toggler-icon"></span>
                             </button>

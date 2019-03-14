@@ -6,14 +6,7 @@ import {connect} from 'react-redux'
 class ManageProduct extends Component {
     state = {
         products: [],
-        inputProductForm: {
-            name: "",
-            desc: "",
-            price: "",
-            src: "",
-            id: ""
-        },
-        isUpdate: false
+        selectedId: 0
     }
 
     componentDidMount() {
@@ -23,95 +16,92 @@ class ManageProduct extends Component {
     getProduct = () => {
         axios.get('http://localhost:1996/products')
             .then(response => {
-                this.setState({products: response.data})
+                this.setState({products: response.data, selectedId: 0})
             })
     }
 
-    onDelete = (i) => { // i menampung id produk yg didelete/diklik
+    onDelete = (i) => { // i menampung id produk yg didelete/diklik, namanya terserah bisa diganti apa aja
         axios.delete(`http://localhost:1996/products/${i}`)
         .then(() => {
             this.getProduct()
         })
     }
 
-    handleFormChange = (event) => {
-        let inputProductFormNew = {...this.state.inputProductForm};
-        let idStamp = this.id;
-
-        if(!this.state.isUpdate){
-            inputProductFormNew["id"] = idStamp;
-        } inputProductFormNew[event.target.name] = event.target.value ;
-          this.setState({inputProductForm: inputProductFormNew})
-    
-    }
-
-    postAPI = () => {
-        axios.post('http://localhost:1996/products',
-        this.state.inputProductForm)
-        .then(() => {
-            this.getProduct()
-        }).then(formbacktoblank => {
-            this.setState({
-                inputProductForm: {
-                    name: "",
-                    desc: "",
-                    price: "",
-                    src: "",
-                    id: ""
-                }
-            })
-        })
-    }
-
-    putAPI = () => {
-        axios.put(`http://localhost:1996/products/${this.state.inputProductForm.id}`, this.state.inputProductForm)
-        .then(() => {
-            this.getProduct()
-        }).then(changebacktopost => {
-            this.setState({
-                isUpdate: false,
-                inputProductForm: {
-                    name: "",
-                    desc: "",
-                    price: "",
-                    src: "",
-                    id: ""
-                }
-            })
-        })
-    }
-
     onAdd = () => {
-        if(this.state.isUpdate){
-            this.putAPI();
-        } else {
-            this.postAPI();
-        }
+        const name = this.name.value
+        const desc = this.desc.value
+        const price = this.price.value
+        const src = this.src.value
+
+         axios.post('http://localhost:1996/products/',{
+            name,
+            desc,
+            price,
+            src
+        }).then(() => {
+            this.getProduct()
+        })
     }
 
-    onEditClick = (i) => {
-        console.log(i)
-        this.setState({
-            inputProductForm: i,
-            isUpdate: true
+    onEditClick = id => {
+        this.setState({selectedId: id})
+    }
+
+    onSaveClick = (id) => {
+        const Name = this.editName.value;
+        const Desc = this.editDesc.value;
+        const Price= this.editPrice.value;
+        const Src = this.editSrc.value;
+
+        axios.put('http://localhost:1996/products/' + id,{
+            name: Name,
+            desc: Desc,
+            price: Price,
+            src: Src
+        }).then(() => {
+            this.getProduct()
         })
     }
 
     renderList = () => {
         return this.state.products.map(item => {
-            return (
-                <tr key={item.id}>
-                    <td>{item.id}</td>
-                    <td>{item.name}</td>
-                    <td>{item.desc}</td>
-                    <td>{item.price}</td>
-                    <td><img className="list" src={item.src} alt={item.desc}></img></td>
-                    <td>
-                        <button onClick={() => {this.onEditClick(item)}} className="btn btn-primary mr-2">Edit</button>
-                        <button onClick={() => {this.onDelete(item.id)}} className="btn btn-danger">Delete</button>
-                    </td>
-                </tr>
-            )
+            if(item.id !== this.state.selectedId){
+                return (
+                    <tr key={item.id}>
+                        <td>{item.id}</td>
+                        <td>{item.name}</td>
+                        <td>{item.desc}</td>
+                        <td>{item.price}</td>
+                        <td><img className="list" src={item.src} alt={item.desc}></img></td>
+                        <td>
+                            <button onClick={() => {this.onEditClick(item.id)}} className="btn btn-primary mr-2">Edit</button>
+                            <button onClick={() => {this.onDelete(item.id)}} className="btn btn-danger">Delete</button>
+                        </td>
+                    </tr>
+                )
+            } else{
+                return (
+                    <tr key={item.id}>
+                        <td>{item.id}</td>
+                        <td>
+                            <input className="form-control" ref={input => {this.editName = input}} type="text" defaultValue={item.name}/>
+                        </td>
+                        <td>
+                            <input className="form-control" ref={input => {this.editDesc = input}} type="text" defaultValue={item.desc}/>
+                        </td>
+                        <td>
+                            <input className="form-control" ref={input => {this.editPrice = input}} type="text" defaultValue={item.price}/>
+                        </td>
+                        <td>
+                            <input className="form-control" ref={input => {this.editSrc = input}} type="text" defaultValue={item.src}/>
+                        </td>
+                        <td>
+                            <button onClick={() => {this.onSaveClick(item.id)}} className="btn btn-primary mr-2">Save</button>
+                            <button onClick={() => {this.setState({selectedId: 0})}} className="btn btn-danger">Cancel</button>
+                        </td>
+                    </tr>
+                )
+            }
         })
     }
 
@@ -148,11 +138,11 @@ class ManageProduct extends Component {
                         </thead>
                         <tbody>
                             <tr>
-                                <th scope="col"><input value={this.state.inputProductForm.name} ref={input => this.name = input} name="name" className="form-control" type="text" onChange={this.handleFormChange} /></th>
-                                <th scope="col"><input value={this.state.inputProductForm.desc} ref={input => this.desc = input} name="desc" className="form-control" type="text" onChange={this.handleFormChange} /></th>
-                                <th scope="col"><input value={this.state.inputProductForm.price} ref={input => this.price = input} name="price" className="form-control" type="text" onChange={this.handleFormChange} /></th>
-                                <th scope="col"><input value={this.state.inputProductForm.src} ref={input => this.src = input} name="src" className="form-control" type="text" onChange={this.handleFormChange} /></th>
-                                <th scope="col"><button onClick={this.onAdd} className="btn btn-outline-warning" >Add/Update</button></th>
+                                <th scope="col"><input ref={input => this.name = input} name="name" className="form-control" type="text"/></th>
+                                <th scope="col"><input ref={input => this.desc = input} name="desc" className="form-control" type="text"/></th>
+                                <th scope="col"><input ref={input => this.price = input} name="price" className="form-control" type="text"/></th>
+                                <th scope="col"><input ref={input => this.src = input} name="src" className="form-control" type="text"/></th>
+                                <th scope="col"><button onClick={this.onAdd} className="btn btn-outline-warning" >Add</button></th>
                             </tr>
                         </tbody>
                 </table>

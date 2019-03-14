@@ -5,7 +5,15 @@ import {connect} from 'react-redux'
 
 class ManageProduct extends Component {
     state = {
-        products: []
+        products: [],
+        inputProductForm: {
+            name: "",
+            desc: "",
+            price: "",
+            src: "",
+            id: ""
+        },
+        isUpdate: false
     }
 
     componentDidMount() {
@@ -14,34 +22,80 @@ class ManageProduct extends Component {
 
     getProduct = () => {
         axios.get('http://localhost:1996/products')
-            .then(res => {
-                this.setState({products: res.data})
+            .then(response => {
+                this.setState({products: response.data})
             })
     }
 
-    onDelete = (i) => { // nampung id yg didelete/diklik
+    onDelete = (i) => { // i menampung id produk yg didelete/diklik
         axios.delete(`http://localhost:1996/products/${i}`)
-        .then(response => {
+        .then(() => {
             this.getProduct()
+        })
+    }
+
+    handleFormChange = (event) => {
+        let inputProductFormNew = {...this.state.inputProductForm};
+        let idStamp = this.id;
+
+        if(!this.state.isUpdate){
+            inputProductFormNew["id"] = idStamp;
+        } inputProductFormNew[event.target.name] = event.target.value ;
+          this.setState({inputProductForm: inputProductFormNew})
+    
+    }
+
+    postAPI = () => {
+        axios.post('http://localhost:1996/products',
+        this.state.inputProductForm)
+        .then(() => {
+            this.getProduct()
+        }).then(formbacktoblank => {
+            this.setState({
+                inputProductForm: {
+                    name: "",
+                    desc: "",
+                    price: "",
+                    src: "",
+                    id: ""
+                }
+            })
+        })
+    }
+
+    putAPI = () => {
+        axios.put(`http://localhost:1996/products/${this.state.inputProductForm.id}`, this.state.inputProductForm)
+        .then(() => {
+            this.getProduct()
+        }).then(changebacktopost => {
+            this.setState({
+                isUpdate: false,
+                inputProductForm: {
+                    name: "",
+                    desc: "",
+                    price: "",
+                    src: "",
+                    id: ""
+                }
+            })
         })
     }
 
     onAdd = () => {
-        const name = this.name.value;
-        const desc = this.desc.value;
-        const price = this.price.value;
-        const pict = this.src.value;
+        if(this.state.isUpdate){
+            this.putAPI();
+        } else {
+            this.postAPI();
+        }
+    }
 
-        axios.post('http://localhost:1996/products', {
-            name,
-            desc,
-            price,
-            pict
-        }).then(response => {
-            this.getProduct()
+    onEditClick = (i) => {
+        console.log(i)
+        this.setState({
+            inputProductForm: i,
+            isUpdate: true
         })
     }
-    //
 
     renderList = () => {
         return this.state.products.map(item => {
@@ -53,7 +107,7 @@ class ManageProduct extends Component {
                     <td>{item.price}</td>
                     <td><img className="list" src={item.src} alt={item.desc}></img></td>
                     <td>
-                        <button className="btn btn-primary mr-2">Edit</button>
+                        <button onClick={() => {this.onEditClick(item)}} className="btn btn-primary mr-2">Edit</button>
                         <button onClick={() => {this.onDelete(item.id)}} className="btn btn-danger">Delete</button>
                     </td>
                 </tr>
@@ -81,7 +135,7 @@ class ManageProduct extends Component {
                             {this.renderList()}
                         </tbody>
                     </table>
-                    <h1 className="display-4 text-center">input Product</h1>
+                    <h1 className="display-4 text-center">Input Product</h1>
                     <table className="table text-center">
                         <thead>
                             <tr>
@@ -94,11 +148,11 @@ class ManageProduct extends Component {
                         </thead>
                         <tbody>
                             <tr>
-                                <th scope="col"><input ref={input => this.name = input} className="form-control" type="text" /></th>
-                                <th scope="col"><input ref={input => this.desc = input} className="form-control" type="text" /></th>
-                                <th scope="col"><input ref={input => this.price = input} className="form-control" type="text" /></th>
-                                <th scope="col"><input ref={input => this.src = input} className="form-control" type="text" /></th>
-                                <th scope="col"><button onClick={this.onAdd}  className="btn btn-outline-warning" >Add</button></th>
+                                <th scope="col"><input value={this.state.inputProductForm.name} ref={input => this.name = input} name="name" className="form-control" type="text" onChange={this.handleFormChange} /></th>
+                                <th scope="col"><input value={this.state.inputProductForm.desc} ref={input => this.desc = input} name="desc" className="form-control" type="text" onChange={this.handleFormChange} /></th>
+                                <th scope="col"><input value={this.state.inputProductForm.price} ref={input => this.price = input} name="price" className="form-control" type="text" onChange={this.handleFormChange} /></th>
+                                <th scope="col"><input value={this.state.inputProductForm.src} ref={input => this.src = input} name="src" className="form-control" type="text" onChange={this.handleFormChange} /></th>
+                                <th scope="col"><button onClick={this.onAdd} className="btn btn-outline-warning" >Add/Update</button></th>
                             </tr>
                         </tbody>
                 </table>

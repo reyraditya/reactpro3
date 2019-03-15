@@ -20,7 +20,7 @@ const AuthReducer = (state = init, action) => {
             } // ...state: menggandakan object(membuat obj baru) dari state = init(initial) yang masih berupa obj kosong dengan property yang sama namun value berbeda, disini value yang diupdate adalah id dan username yg dibawa oleh action creator onLoginClick(mengambil data dari database)(===> Lihat ES6).
 
         case 'LOGOUT_USER':
-            window.location.pathname='/'
+            // window.location.pathname="/"
             return(state = init); // atau return {...state, ...init} => sama aja dengan state = init
 
         case 'AUTH_ERROR':

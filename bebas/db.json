@@ -10,7 +10,7 @@
     {
       "name": "PRADA",
       "desc": "technical jacquard sweater",
-      "price": "480 €",
+      "price": "500",
       "src": "https://cdn-images.farfetch-contents.com/13/56/42/92/13564292_16571181_300.jpg",
       "id": 1
     },
@@ -18,36 +18,43 @@
       "id": 2,
       "name": "PRADA",
       "desc": "t-shirt logo patch",
-      "price": "320 €",
+      "price": "320",
       "src": "https://cdn-images.farfetch-contents.com/13/30/28/76/13302876_16776947_300.jpg"
     },
     {
       "id": 3,
       "name": "PRADA",
       "desc": "geometric pattern sweater",
-      "price": "605 €",
+      "price": "605",
       "src": "https://cdn-images.farfetch-contents.com/13/62/39/94/13623994_16359893_300.jpg"
     },
     {
       "name": "BALENCIAGA",
       "desc": "monogram sweater",
-      "price": "650 €",
+      "price": "650",
       "src": "https://cdn-images.farfetch-contents.com/13/44/55/18/13445518_15527692_300.jpg",
       "id": 4
     },
     {
       "name": "GUCCI",
       "desc": "colorblock polo",
-      "price": "650 €",
+      "price": "650",
       "src": "https://cdn-images.farfetch-contents.com/13/83/39/29/13833929_17149912_300.jpg",
       "id": 5
     },
     {
       "name": "RAF SIMONS",
       "desc": "printed t-shirt",
-      "price": "890 €",
+      "price": "890",
       "src": "https://cdn-images.farfetch-contents.com/13/73/07/95/13730795_16848543_480.jpg",
       "id": 6
+    },
+    {
+      "name": "AMI Alexander Matiussi",
+      "desc": "gold patchwork shirt",
+      "price": "210",
+      "src": "https://cdn-images.farfetch-contents.com/13/20/82/55/13208255_14618363_300.jpg",
+      "id": 7
     }
   ]
 }

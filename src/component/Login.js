@@ -58,7 +58,6 @@ class Login extends Component{
                                     Sign Up!
                                     </Link>
                             </p>
-
                         </div>
                     </div>
                 </div>

@@ -44,7 +44,7 @@
     },
     {
       "name": "RAF SIMONS",
-      "desc": "printed t-shirt",
+      "desc": "printed shirt",
       "price": "890",
       "src": "https://cdn-images.farfetch-contents.com/13/73/07/95/13730795_16848543_480.jpg",
       "id": 6
@@ -55,6 +55,13 @@
       "price": "210",
       "src": "https://cdn-images.farfetch-contents.com/13/20/82/55/13208255_14618363_300.jpg",
       "id": 7
+    },
+    {
+      "name": "ACNE STUDIOS",
+      "desc": "minimal coat",
+      "price": "980",
+      "src": "https://cdn-images.farfetch-contents.com/13/50/41/80/13504180_16566860_300.jpg",
+      "id": 8
     }
   ]
 }

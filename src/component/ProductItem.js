@@ -6,8 +6,8 @@ export default class ProductItem extends Component {
   render () {
     const {item} = this.props  
     return (
-        <div className="card col-3 m-3" style={{ width: "18rem" }} key={item.id}>
-            <img src={item.src} className="card-img-top" alt={item.name} />
+        <div className="card text-center col-3 m-3" style={{ width: "18rem" }} key={item.id}>
+            <img src={item.src} className="card-img-top mt-3 mx-auto d-block" alt={item.name} />
             <div className="card-body">
                 <h5 className="card-title">{item.name}</h5>
                 <p className="card-text">{item.desc}</p>

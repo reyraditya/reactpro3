@@ -69,7 +69,7 @@ class ManageProduct extends Component {
         })
     }
 
-    renderList = () => {
+    renderList = () => { // Display list berisi produk dalam style block
         return this.state.products.map(item => {
             if(item.id !== this.state.selectedId){
                 return (
@@ -112,7 +112,7 @@ class ManageProduct extends Component {
     }
 
     render() {
-        if (this.props.username !== ''){
+        if (this.props.username !== ''){ // Jika user logged in, maka
             return (
                 <div className="container">
                     <h1 className="display-4 text-center">Manage Product</h1>

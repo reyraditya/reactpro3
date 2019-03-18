@@ -25,12 +25,12 @@ export default class DetailProduct extends Component {
             <div className="card-header">
                 {product.name}
             </div>
-            <div className="card-body">
+            <div className="card-body text-center">
                 <img src={product.src} alt={product.name} />
-                <h3 className="card-title">Product: {product.name}</h3>
+                <h3 className="card-title">{product.name}</h3>
                 <p className="card-text">Description: {product.desc}</p>
                 <p className="card-text">Price: {product.price}€</p>
-                <a href="/" className="btn btn-block btn-primary">Add to Cart</a>
+                <a href="/" className="btn btn-primary">Add to Cart</a>
             </div>
         </div>
     )

@@ -1,3 +1,7 @@
-table img.list {
-    width: 100px !important
+table img.list{
+    width: 90px !important;
+}
+
+.card img.card-img-top{
+    width: 150px !important;
 }

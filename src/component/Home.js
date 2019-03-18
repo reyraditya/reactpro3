@@ -28,19 +28,43 @@ class Home extends Component{
     }
 
     onSearchClick = () => {
-        const search = this.inputSearch.value;
-        this.setState({
-            products: this.state.products.filter(product => {
-                if(search !== ""){
-                    return(
-                        product.name.toLowerCase().includes(search) || product.desc.toLowerCase().includes(search)
-                    )
-                } else{
-                    return this.getProduct()
-                }
-            })
-        }) 
+        const nameSearch = this.nameSearch.value;
+        console.log(nameSearch);
+        
+
+        var products = this.state.products.filter(product => {
+            return product.name.toLowerCase().includes(nameSearch.toLowerCase())
+        })
+        if (nameSearch !== ""){
+            this.setState({products})
+        } else{
+            this.getProduct()
+        }
     }
+    
+    // this.setState({
+    //     products: this.state.products.filter(product => {
+    //         if(nameSearch !== ""){
+    //             return(
+    //                 product.name.toLowerCase().includes(nameSearch)
+    //             )
+    //         } else{
+    //             return this.getProduct()
+    //         }
+    //     })
+    // }) 
+
+
+    // const max = parseInt(this.max.value)
+
+     //     var arrSearch = this.state.products.filter(item => {
+    //         return item.price <= max 
+    //     })
+    //     if (arrSearch.length > 0) {
+    //         this.setState({ products: arrSearch })
+    //     } else {
+    //         this.getProduct()
+    //     }
 
 
     render(){
@@ -50,7 +74,7 @@ class Home extends Component{
                <div className="col-2 ml-2 d-block">
                     <h1 className="display-4 border-bottom border-secondary">Search</h1>
                     <form className="mt-4 d-block">
-                        <input onKeyUp={this.onSearchClick} ref={input => this.inputSearch = input} type="text" placeholder="By Name"></input>
+                        <input onKeyUp={this.onSearchClick} ref={input => this.nameSearch = input} type="text" placeholder="By Name"></input>
                         {/* <button ={this.onSearchClick} className="btn btn-dark btn-block mt-2">Search</button> */}
                     </form>
                     <h1 className="display-4 border-bottom border-secondary mt-5">Filter</h1>

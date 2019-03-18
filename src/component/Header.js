@@ -25,13 +25,13 @@ class Header extends Component{
 
          this.toggle = this.toggle.bind(this);
         this.state = {
-          dropdownOpen: false
+            isOpen: false
         };
     }
 
      toggle() {
-    this.setState(prevState => ({
-        dropdownOpen: !prevState.dropdownOpen
+    this.setState(({
+        isOpen: !this.state.isOpen
     }));
     }
 

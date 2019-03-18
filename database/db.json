@@ -62,6 +62,13 @@
       "price": "980",
       "src": "https://cdn-images.farfetch-contents.com/13/50/41/80/13504180_16566860_300.jpg",
       "id": 8
+    },
+    {
+      "name": "FENDI",
+      "desc": "monogram zipper sweatshirt",
+      "price": "1300",
+      "src": "https://cdn-images.farfetch-contents.com/13/80/02/01/13800201_17164422_480.jpg",
+      "id": 9
     }
   ]
 }
